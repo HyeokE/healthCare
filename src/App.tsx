@@ -6,9 +6,10 @@ import API from './apis';
 function App() {
   return (
     <LayoutContainer>
-      <ContainerInner>
+        <ContainerInner>
         <Table />
-      </ContainerInner>
+
+        </ContainerInner>
     </LayoutContainer>
   );
 }

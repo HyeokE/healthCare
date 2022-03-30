@@ -4,6 +4,7 @@ import {
   StyledTbody,
   StyledTd,
   StyledTh,
+  StyledThead,
   StyledTr,
 } from './styled';
 import { useGetPatientList } from '../../../apis/hooks/useGetPatientList';
@@ -25,13 +26,13 @@ const Table = () => {
     <>
       {patientData && (
         <StyledTable>
-          <thead>
+          <StyledThead>
             <tr>
               {tableHead.map((data, id) => (
                 <StyledTh key={id}>{data}</StyledTh>
               ))}
             </tr>
-          </thead>
+          </StyledThead>
           <StyledTbody>
             {patientList &&
               patientList.map((data) => (
