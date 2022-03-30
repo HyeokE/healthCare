@@ -42,24 +42,14 @@ export const assetBlue = {
   blue400: '#64B5F6',
   blue500: '#42A5F5',
   blue600: '#2196F3',
-  tossBlue: '#42a5f5',
-  tossBlue500: '#3182f6',
-  tossBlue200: '#90c2ff',
-  tossBlueActive: '#3886f6',
 };
-export const googleLogoColor = {
-  googleBlue: '#4285F4',
-  googleRed: '#EA4335',
-  googleYellow: '#FBBC04',
-  googleGreen: '#34A853',
-};
+
 export const primaryColor = {
   ...assetGrey,
   ...assetGreen,
   ...assetYellow,
   ...assetRed,
   ...assetBlue,
-  ...googleLogoColor,
 };
 
 export const colors = { ...primaryColor };
