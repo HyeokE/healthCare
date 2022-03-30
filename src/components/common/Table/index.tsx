@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyledTable, StyledTh } from './styled';
+import {
+  StyledTable,
+  StyledTbody,
+  StyledTd,
+  StyledTh,
+  StyledTr,
+} from './styled';
 import { useGetPatientList } from '../../../apis/hooks/useGetPatientList';
 
 const tableHead = [
@@ -16,36 +22,43 @@ const Table = () => {
   const { patientData } = useGetPatientList();
   const patientList = patientData?.patient.list;
   return (
-    <StyledTable>
-      <thead>
-        <tr>
-          {tableHead.map((data, id) => (
-            <StyledTh key={id}>{data}</StyledTh>
-          ))}
-        </tr>
-      </thead>
-      {patientList &&
-        patientList.map((data) => (
-          <tbody key={data.personID}>
+    <>
+      {patientData && (
+        <StyledTable>
+          <thead>
             <tr>
-              <td>{data.personID}</td>
-              <td>{data.gender}</td>
-              <td>{data.birthDatetime}</td>
-              <td>{data.age}</td>
-              <td>{data.race}</td>
-              <td>{data.ethnicity}</td>
-              <td>{data.isDeath}</td>
+              {tableHead.map((data, id) => (
+                <StyledTh key={id}>{data}</StyledTh>
+              ))}
             </tr>
-          </tbody>
-        ))}
+          </thead>
+          <StyledTbody>
+            {patientList &&
+              patientList.map((data) => (
+                <StyledTr key={data.personID}>
+                  <StyledTd>{data.personID}</StyledTd>
+                  <StyledTd>{data.gender}</StyledTd>
+                  <StyledTd>{data.birthDatetime}</StyledTd>
+                  <StyledTd>{data.age}</StyledTd>
+                  <StyledTd>{data.race}</StyledTd>
+                  <StyledTd>{data.ethnicity}</StyledTd>
+                  <StyledTd>{data.isDeath}</StyledTd>
+                </StyledTr>
+              ))}
+          </StyledTbody>
 
-      <tfoot>
-        <tr>
-          <td>Sum</td>
-          <td>$180</td>
-        </tr>
-      </tfoot>
-    </StyledTable>
+          <tfoot>
+            <tr>
+              <StyledTd>
+                {patientData.patient.page} /{' '}
+                {patientData.patient.totalLength / 10}
+              </StyledTd>
+              <StyledTd>$180</StyledTd>
+            </tr>
+          </tfoot>
+        </StyledTable>
+      )}
+    </>
   );
 };
 
