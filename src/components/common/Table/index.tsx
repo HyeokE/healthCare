@@ -95,7 +95,6 @@ const Table = () => {
             </StyledTable>
           )}
         </TableBodyWrapper>
-
         <StyledTable>
           <colgroup>
             <col width="80%" />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { PATIENT_FILTER_KEY, patientFilterState } from '../../../store/filter';
 
 const SelectBox = () => {
@@ -10,6 +10,7 @@ const SelectBox = () => {
     setSelected({
       ...selected,
       [PATIENT_FILTER_KEY.LENGTH]: Number(e.target.value),
+      [PATIENT_FILTER_KEY.PAGE]: 1,
     });
   };
   return (
@@ -24,6 +25,3 @@ const SelectBox = () => {
 };
 
 export default SelectBox;
-function useState(arg0: string): [any, any] {
-  throw new Error('Function not implemented.');
-}

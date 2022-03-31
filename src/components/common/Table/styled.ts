@@ -14,7 +14,6 @@ export const TableBodyWrapper = styled.div`
   overflow-y: scroll;
 `;
 export const StyledThead = styled.thead`
-  box-shadow: 0 10px 10px 0 ${(props) => props.theme.color.grey400};
   background: ${(props) => props.theme.color.blue600};
   width: 100%;
 `;
