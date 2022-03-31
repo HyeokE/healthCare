@@ -1,7 +1,9 @@
 import { orderColumn } from '../types/patientFilterType';
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 const PATIENT_FILTER = 'patientFilter';
+const PATIENT_FILTER_SELECTOR = 'filterSelector';
+
 export const PATIENT_FILTER_KEY = {
   PAGE: 'page',
   LENGTH: 'length',
@@ -15,18 +17,22 @@ export const PATIENT_FILTER_KEY = {
   DEATH: 'death',
 } as const;
 export const PatientFilterState = {
-  [PATIENT_FILTER_KEY.PAGE]: 0,
-  [PATIENT_FILTER_KEY.LENGTH]: 0,
+  [PATIENT_FILTER_KEY.LENGTH]: 10,
+  [PATIENT_FILTER_KEY.PAGE]: 1,
   [PATIENT_FILTER_KEY.AGE_MAX]: 0,
   [PATIENT_FILTER_KEY.AGE_MIN]: 0,
-  [PATIENT_FILTER_KEY.ORDER_COLUMN]: orderColumn['person_id'].id,
+  [PATIENT_FILTER_KEY.ORDER_COLUMN]: orderColumn[0].id,
   [PATIENT_FILTER_KEY.ORDER_DESC]: false,
   [PATIENT_FILTER_KEY.ETHNICITY]: '',
   [PATIENT_FILTER_KEY.RACE]: '',
   [PATIENT_FILTER_KEY.GENDER]: '',
   [PATIENT_FILTER_KEY.DEATH]: false,
 };
-export const filterState = atom<typeof PatientFilterState>({
+export const patientFilterState = atom({
   key: PATIENT_FILTER,
   default: PatientFilterState,
+});
+export const patientSelector = selector({
+  key: PATIENT_FILTER_SELECTOR,
+  get: ({ get }) => get(patientFilterState),
 });

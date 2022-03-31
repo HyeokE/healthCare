@@ -5,8 +5,11 @@ export const StyledTable = styled.table`
   border-collapse: collapse;
   border-radius: 10px;
   overflow: hidden;
-  max-width: 1140px;
-  min-width: 1140px;
+  width: 100%;
+`;
+export const TableBodyWrapper = styled.div`
+  height: 600px;
+  overflow-y: scroll;
 `;
 export const StyledThead = styled.thead`
   box-shadow: 0 10px 10px 0 ${(props) => props.theme.color.grey400};
@@ -22,7 +25,7 @@ export const StyledTh = styled.th`
     border-right: none;
   }
 `;
-export const StyledTbody = styled.tbody``;
+
 export const StyledTr = styled.tr<{ nth?: number; isOpen?: boolean }>`
   border-bottom: 1px solid ${(props) => props.theme.color.blue500};
   transition: all 0.3s ease-in-out;

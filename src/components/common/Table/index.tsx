@@ -1,13 +1,15 @@
 import React from 'react';
 import {
   StyledTable,
-  StyledTbody,
   StyledTd,
   StyledTh,
   StyledThead,
+  TableBodyWrapper,
 } from './styled';
 import { useGetPatientList } from '../../../apis/hooks/useGetPatientList';
 import TableRow from '../TableRow';
+import { useRecoilValue } from 'recoil';
+import { patientSelector } from '../../../store/filter';
 
 const tableHead = [
   '환자 id (personID)',
@@ -18,27 +20,49 @@ const tableHead = [
   '민족 (ethnicity)',
   '사망 여부 (isDeath)',
 ];
+const ColGroup = () => {
+  return (
+    <colgroup>
+      <col width="10%" />
+      <col width="5%" />
+      <col width="10%" />
+      <col width="5%" />
+      <col width="5%" />
+      <col width="8%" />
+      <col width="8%" />
+    </colgroup>
+  );
+};
 
 const Table = () => {
-  const { patientData } = useGetPatientList();
+  const filter = useRecoilValue(patientSelector);
+  const { patientData } = useGetPatientList(filter);
   const patientList = patientData?.patient.list;
   return (
     <>
       {patientData && (
-        <StyledTable>
-          <StyledThead>
-            <tr>
-              {tableHead.map((data, id) => (
-                <StyledTh key={id}>{data}</StyledTh>
-              ))}
-            </tr>
-          </StyledThead>
-          <StyledTbody>
-            {patientList &&
-              patientList.map((data, id) => (
-                <TableRow key={data.personID} {...data} nth={id} />
-              ))}
-          </StyledTbody>
+        <>
+          <StyledTable>
+            <ColGroup />
+            <StyledThead>
+              <tr>
+                {tableHead.map((data, id) => (
+                  <StyledTh key={id}>{data}</StyledTh>
+                ))}
+              </tr>
+            </StyledThead>
+          </StyledTable>
+          <TableBodyWrapper>
+            <StyledTable>
+              <ColGroup />
+              <tbody>
+                {patientList &&
+                  patientList.map((data, id) => (
+                    <TableRow key={data.personID} {...data} nth={id} />
+                  ))}
+              </tbody>
+            </StyledTable>
+          </TableBodyWrapper>
           <tfoot>
             <tr>
               <StyledTd>
@@ -47,7 +71,7 @@ const Table = () => {
               </StyledTd>
             </tr>
           </tfoot>
-        </StyledTable>
+        </>
       )}
     </>
   );

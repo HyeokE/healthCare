@@ -7,8 +7,8 @@ class Api {
   constructor() {
     this.URL = 'http://49.50.167.136:9871/';
   }
-  getPatientListData() {
-    return axios.get<PatientListType>(`${this.URL}api/patient/list?length=10`);
+  getPatientListData(url: string) {
+    return axios.get<PatientListType>(`${this.URL}api/patient/${url}`);
   }
   getPatientDetailData(url: string) {
     return axios.get<PatientBriefType>(`${this.URL}api/patient/${url}`);
