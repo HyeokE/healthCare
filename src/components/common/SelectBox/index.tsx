@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { PATIENT_FILTER_KEY, patientFilterState } from '../../../store/filter';
 
 const SelectBox = () => {
-  const selectList = ['5', '10', '15', '30'];
+  const selectList = ['15', '30', '50'];
   const [selected, setSelected] = useRecoilState(patientFilterState);
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {

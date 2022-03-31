@@ -18,24 +18,24 @@ import {
 } from '../../../store/filter';
 
 const tableHead = [
-  '환자 id (personID)',
-  '성별 (gender)',
-  '생년월일 (birthDatetime)',
-  '나이 (age)',
-  '인종 (race)',
-  '민족 (ethnicity)',
-  '사망 여부 (isDeath)',
+  'PersonID',
+  'Gender',
+  'BirthDatetime',
+  'Age',
+  'Race',
+  'Ethnicity',
+  'IsDeath',
 ];
 const ColGroup = () => {
   return (
     <colgroup>
+      <col width="20%" />
       <col width="10%" />
-      <col width="5%" />
+      <col width="20%" />
       <col width="10%" />
-      <col width="5%" />
-      <col width="5%" />
-      <col width="8%" />
-      <col width="8%" />
+      <col width="10%" />
+      <col width="20%" />
+      <col width="10%" />
     </colgroup>
   );
 };
@@ -50,7 +50,7 @@ const Table = () => {
     (patientData?.patient?.totalLength as number) / page.length,
   );
 
-  const currentPage = patientData?.patient?.page as number;
+  const currentPage = page.page;
 
   const pageHandler = (value: string) => {
     if (value === 'up') {
@@ -77,14 +77,11 @@ const Table = () => {
         <StyledTable>
           <ColGroup />
           <StyledThead>
-            <tr>
-              {tableHead.map((data, id) => (
-                <StyledTh key={id}>{data}</StyledTh>
-              ))}
-            </tr>
+            {tableHead.map((data, id) => (
+              <StyledTh key={id}>{data}</StyledTh>
+            ))}
           </StyledThead>
         </StyledTable>
-
         <TableBodyWrapper>
           {patientData && (
             <StyledTable>
@@ -109,9 +106,11 @@ const Table = () => {
           <StyledTfoot>
             <tr>
               <StyledTd />
-              <StyledTd>
-                {currentPage} / {totalPage}
-              </StyledTd>
+              {{ currentPage } && (
+                <StyledTd>
+                  {currentPage} / {totalPage}
+                </StyledTd>
+              )}
               <StyledTd onClick={() => pageHandler('down')}>이전으로</StyledTd>
               <StyledTd onClick={() => pageHandler('up')}>다음으로</StyledTd>
             </tr>

@@ -17,7 +17,7 @@ export const PATIENT_FILTER_KEY = {
   DEATH: 'death',
 } as const;
 export const PatientFilterState = {
-  [PATIENT_FILTER_KEY.LENGTH]: 10,
+  [PATIENT_FILTER_KEY.LENGTH]: 15,
   [PATIENT_FILTER_KEY.PAGE]: 1,
   [PATIENT_FILTER_KEY.AGE_MAX]: 0,
   [PATIENT_FILTER_KEY.AGE_MIN]: 0,

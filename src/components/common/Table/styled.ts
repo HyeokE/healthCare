@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 
 export const StyledTable = styled.table`
   border-collapse: collapse;
-
   width: 100%;
 `;
 export const TableWrapper = styled.div`
@@ -17,8 +16,10 @@ export const TableBodyWrapper = styled.div`
 export const StyledThead = styled.thead`
   box-shadow: 0 10px 10px 0 ${(props) => props.theme.color.grey400};
   background: ${(props) => props.theme.color.blue600};
+  width: 100%;
 `;
 export const StyledTh = styled.th`
+  vertical-align: middle;
   text-align: center;
   padding: 15px 20px;
   color: ${(props) => props.theme.color.white};
