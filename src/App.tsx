@@ -1,15 +1,12 @@
 import React from 'react';
-import { ContainerInner, LayoutContainer } from './styles/layouts';
+import { LayoutContainer } from './styles/layouts';
 import Table from './components/common/Table';
-import API from './apis';
 
 function App() {
   return (
     <LayoutContainer>
-        <ContainerInner>
-        <Table />
-
-        </ContainerInner>
+      <div style={{ height: '500px' }}>gragh</div>
+      <Table />
     </LayoutContainer>
   );
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { PatientListType } from '../types/patientListType';
+import { PatientBriefType } from '../types/patientBriefType';
 
 class Api {
   private URL: string;
@@ -8,6 +9,9 @@ class Api {
   }
   getPatientListData() {
     return axios.get<PatientListType>(`${this.URL}api/patient/list?length=10`);
+  }
+  getPatientDetailData(url: string) {
+    return axios.get<PatientBriefType>(`${this.URL}api/patient/${url}`);
   }
 }
 export default new Api();

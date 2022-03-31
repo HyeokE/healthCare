@@ -5,9 +5,9 @@ import {
   StyledTd,
   StyledTh,
   StyledThead,
-  StyledTr,
 } from './styled';
 import { useGetPatientList } from '../../../apis/hooks/useGetPatientList';
+import TableRow from '../TableRow';
 
 const tableHead = [
   '환자 id (personID)',
@@ -35,26 +35,16 @@ const Table = () => {
           </StyledThead>
           <StyledTbody>
             {patientList &&
-              patientList.map((data) => (
-                <StyledTr key={data.personID}>
-                  <StyledTd>{data.personID}</StyledTd>
-                  <StyledTd>{data.gender}</StyledTd>
-                  <StyledTd>{data.birthDatetime}</StyledTd>
-                  <StyledTd>{data.age}</StyledTd>
-                  <StyledTd>{data.race}</StyledTd>
-                  <StyledTd>{data.ethnicity}</StyledTd>
-                  <StyledTd>{data.isDeath}</StyledTd>
-                </StyledTr>
+              patientList.map((data, id) => (
+                <TableRow key={data.personID} {...data} nth={id} />
               ))}
           </StyledTbody>
-
           <tfoot>
             <tr>
               <StyledTd>
-                {patientData.patient.page} /{' '}
+                {patientData.patient.page}/
                 {patientData.patient.totalLength / 10}
               </StyledTd>
-              <StyledTd>$180</StyledTd>
             </tr>
           </tfoot>
         </StyledTable>
