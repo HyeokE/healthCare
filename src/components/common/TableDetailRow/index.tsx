@@ -8,7 +8,7 @@ interface TableRowProps extends patientType {
   nth: number;
 }
 
-const TableRow = (data: TableRowProps) => {
+const TableDetailRow = (data: TableRowProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { patientDetailData } = useGetPatientDetail(String(data.personID));
@@ -52,4 +52,4 @@ const TableRow = (data: TableRowProps) => {
   );
 };
 
-export default TableRow;
+export default TableDetailRow;

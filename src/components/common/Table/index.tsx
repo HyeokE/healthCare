@@ -2,14 +2,20 @@ import React from 'react';
 import {
   StyledTable,
   StyledTd,
+  StyledTfoot,
   StyledTh,
   StyledThead,
   TableBodyWrapper,
+  TableWrapper,
 } from './styled';
 import { useGetPatientList } from '../../../apis/hooks/useGetPatientList';
-import TableRow from '../TableRow';
-import { useRecoilValue } from 'recoil';
-import { patientSelector } from '../../../store/filter';
+import TableDetailRow from '../TableDetailRow';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  PATIENT_FILTER_KEY,
+  patientFilterState,
+  patientSelector,
+} from '../../../store/filter';
 
 const tableHead = [
   '환자 id (personID)',
@@ -35,13 +41,40 @@ const ColGroup = () => {
 };
 
 const Table = () => {
+  const [page, setPage] = useRecoilState(patientFilterState);
   const filter = useRecoilValue(patientSelector);
   const { patientData } = useGetPatientList(filter);
   const patientList = patientData?.patient.list;
+
+  const totalPage = (): number => {
+    return Math.ceil(
+      (patientData?.patient?.totalLength as number) / page.length,
+    );
+  };
+
+  const pageHandler = (value: string) => {
+    if (value === 'up') {
+      if (totalPage() !== patientData?.patient?.page) {
+        setPage({
+          ...page,
+          [PATIENT_FILTER_KEY.PAGE]: page[PATIENT_FILTER_KEY.PAGE] + 1,
+        });
+      }
+    }
+    if (value === 'down') {
+      if ((patientData?.patient?.page as number) !== 1) {
+        setPage({
+          ...page,
+          [PATIENT_FILTER_KEY.PAGE]: page[PATIENT_FILTER_KEY.PAGE] - 1,
+        });
+      }
+    }
+  };
+
   return (
     <>
       {patientData && (
-        <>
+        <TableWrapper>
           <StyledTable>
             <ColGroup />
             <StyledThead>
@@ -58,20 +91,32 @@ const Table = () => {
               <tbody>
                 {patientList &&
                   patientList.map((data, id) => (
-                    <TableRow key={data.personID} {...data} nth={id} />
+                    <TableDetailRow key={data.personID} {...data} nth={id} />
                   ))}
               </tbody>
             </StyledTable>
           </TableBodyWrapper>
-          <tfoot>
-            <tr>
-              <StyledTd>
-                {patientData.patient.page}/
-                {patientData.patient.totalLength / 10}
-              </StyledTd>
-            </tr>
-          </tfoot>
-        </>
+          <StyledTable>
+            <colgroup>
+              <col width="80%" />
+              <col width="7%" />
+              <col width="7%" />
+              <col width="7%" />
+            </colgroup>
+            <StyledTfoot>
+              <tr>
+                <StyledTd />
+                <StyledTd>
+                  {patientData.patient.page} / {totalPage()}
+                </StyledTd>
+                <StyledTd onClick={() => pageHandler('down')}>
+                  이전으로
+                </StyledTd>
+                <StyledTd onClick={() => pageHandler('up')}>다음으로</StyledTd>
+              </tr>
+            </StyledTfoot>
+          </StyledTable>
+        </TableWrapper>
       )}
     </>
   );

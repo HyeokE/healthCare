@@ -1,11 +1,14 @@
 import styled, { css } from 'styled-components';
 
 export const StyledTable = styled.table`
-  border: 1px solid ${(props) => props.theme.color.blue400};
   border-collapse: collapse;
+
+  width: 100%;
+`;
+export const TableWrapper = styled.div`
+  border: 1px solid ${(props) => props.theme.color.blue400};
   border-radius: 10px;
   overflow: hidden;
-  width: 100%;
 `;
 export const TableBodyWrapper = styled.div`
   height: 600px;
@@ -20,7 +23,6 @@ export const StyledTh = styled.th`
   padding: 15px 20px;
   color: ${(props) => props.theme.color.white};
   font-size: ${(props) => props.theme.fontSize.body2};
-
   &:last-child {
     border-right: none;
   }
@@ -46,7 +48,11 @@ export const StyledTd = styled.td`
   padding: 15px 0;
   margin: auto;
   font-size: ${(props) => props.theme.fontSize.body2};
-  overflow: hidden;
+  cursor: pointer;
+`;
+export const StyledTfoot = styled.tfoot`
+  background: ${(props) => props.theme.color.blue600};
+  color: ${(props) => props.theme.color.white};
 `;
 export const DetailSection = styled.div`
   font-size: ${(props) => props.theme.fontSize.body2};
