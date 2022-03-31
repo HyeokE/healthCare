@@ -46,15 +46,15 @@ const Table = () => {
   const { patientData } = useGetPatientList(filter);
   const patientList = patientData?.patient.list;
 
-  const totalPage = (): number => {
-    return Math.ceil(
-      (patientData?.patient?.totalLength as number) / page.length,
-    );
-  };
+  const totalPage = Math.ceil(
+    (patientData?.patient?.totalLength as number) / page.length,
+  );
+
+  const currentPage = patientData?.patient?.page as number;
 
   const pageHandler = (value: string) => {
     if (value === 'up') {
-      if (totalPage() !== patientData?.patient?.page) {
+      if (totalPage !== currentPage) {
         setPage({
           ...page,
           [PATIENT_FILTER_KEY.PAGE]: page[PATIENT_FILTER_KEY.PAGE] + 1,
@@ -62,7 +62,7 @@ const Table = () => {
       }
     }
     if (value === 'down') {
-      if ((patientData?.patient?.page as number) !== 1) {
+      if (currentPage !== 1) {
         setPage({
           ...page,
           [PATIENT_FILTER_KEY.PAGE]: page[PATIENT_FILTER_KEY.PAGE] - 1,
@@ -73,19 +73,20 @@ const Table = () => {
 
   return (
     <>
-      {patientData && (
-        <TableWrapper>
-          <StyledTable>
-            <ColGroup />
-            <StyledThead>
-              <tr>
-                {tableHead.map((data, id) => (
-                  <StyledTh key={id}>{data}</StyledTh>
-                ))}
-              </tr>
-            </StyledThead>
-          </StyledTable>
-          <TableBodyWrapper>
+      <TableWrapper>
+        <StyledTable>
+          <ColGroup />
+          <StyledThead>
+            <tr>
+              {tableHead.map((data, id) => (
+                <StyledTh key={id}>{data}</StyledTh>
+              ))}
+            </tr>
+          </StyledThead>
+        </StyledTable>
+
+        <TableBodyWrapper>
+          {patientData && (
             <StyledTable>
               <ColGroup />
               <tbody>
@@ -95,29 +96,28 @@ const Table = () => {
                   ))}
               </tbody>
             </StyledTable>
-          </TableBodyWrapper>
-          <StyledTable>
-            <colgroup>
-              <col width="80%" />
-              <col width="7%" />
-              <col width="7%" />
-              <col width="7%" />
-            </colgroup>
-            <StyledTfoot>
-              <tr>
-                <StyledTd />
-                <StyledTd>
-                  {patientData.patient.page} / {totalPage()}
-                </StyledTd>
-                <StyledTd onClick={() => pageHandler('down')}>
-                  이전으로
-                </StyledTd>
-                <StyledTd onClick={() => pageHandler('up')}>다음으로</StyledTd>
-              </tr>
-            </StyledTfoot>
-          </StyledTable>
-        </TableWrapper>
-      )}
+          )}
+        </TableBodyWrapper>
+
+        <StyledTable>
+          <colgroup>
+            <col width="80%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+          </colgroup>
+          <StyledTfoot>
+            <tr>
+              <StyledTd />
+              <StyledTd>
+                {currentPage} / {totalPage}
+              </StyledTd>
+              <StyledTd onClick={() => pageHandler('down')}>이전으로</StyledTd>
+              <StyledTd onClick={() => pageHandler('up')}>다음으로</StyledTd>
+            </tr>
+          </StyledTfoot>
+        </StyledTable>
+      </TableWrapper>
     </>
   );
 };
